@@ -15,7 +15,8 @@ module.exports = exports = function(file) {
   var home = process.env.HOME || process.env.HOMEPATH;
   
   if(!file && !home) return {};
-  file = file || join(home, ".netrc");
+  var prefix = /^win/.test(process.platform) ? '_' : '.';
+  file = file || join(home, prefix + "netrc");
 
   if(!file || !fs.existsSync(file)) return {};
   var netrc = fs.readFileSync(file, "UTF-8");
